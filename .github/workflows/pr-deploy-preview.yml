@@ -1,0 +1,117 @@
+name: 'Pull Request'
+
+on:
+  pull_request:
+    types: ['opened', 'reopened', 'synchronize']
+
+jobs:
+  eslint:
+    name: 'Automated Review'
+    runs-on: ubuntu-latest
+    steps:
+      # Check out project
+      - name: Checkout repo 📦
+        uses: actions/checkout@v3
+
+      # Install pnpm, Node 18, and dependencies
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+      - name: Install build dependencies 🧰
+        run: |
+          pnpm install
+          pnpm svelte-kit sync
+      - uses: Maggi64/eslint-plus-action@master
+        name: Run ESLint 🕵️
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
+        with:
+          extensions: '.js,.ts,.svelte'
+          npmInstall: false
+          reportIgnoredFiles: true
+      # ReviewDog actions
+      - uses: get-woke/woke-action-reviewdog@v0
+        with:
+          reporter: github-pr-review
+      - uses: reviewdog/action-languagetool@v1
+        with:
+          reporter: github-pr-review
+          language: en-GB
+          level: info
+
+  deploy:
+    name: 'Build & Deploy Preview'
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      contents: read
+      deployments: write
+      statuses: write
+
+    steps:
+      # Check out project
+      - name: Checkout repo 📦
+        uses: actions/checkout@v3
+
+      # Install pnpm, Node 18, and dependencies
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+      - name: Install build dependencies 🧰
+        run: pnpm install
+
+      # Sets various environment variables
+      - name: Inject slug/short variables 💉
+        uses: rlespinasse/github-slug-action@v4.x
+
+      # Install & Build
+      - name: 'Build app 🛠'
+        run: pnpm build
+        env:
+          VITE_DISABLE_PLAUSIBLE: 'true'
+          VITE_BUILD_ID: ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}
+
+      # Deploy to Netlify
+      - name: Deploy to Netlify 🚀
+        id: netlify-deploy
+        run: |
+          pnpm netlify deploy --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN" --alias="$CI_ENVIRONMENT_SLUG" --message "${NETLIFY_DEPLOY_MESSAGE}"
+          echo "::set-output name=NETLIFY_PREVIEW_URL::https://${{ env.GITHUB_HEAD_REF_SLUG_URL }}--v49.netlify.app"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_DEPLOY_MESSAGE: 'GitHub deployment of ${{ env.GITHUB_HEAD_REF_SLUG_URL }}'
+          CI_ENVIRONMENT_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG_URL }}
+
+      # Create a status check with link to preview
+      - name: Update Status check
+        if: success()
+        uses: Sibz/github-status-action@v1.1.1
+        with:
+          authToken: ${{ github.token }}
+          context: Netlify Preview
+          state: success
+          target_url: ${{ steps.netlify-deploy.outputs.NETLIFY_PREVIEW_URL }}
+
+      # Create a new GitHub deployment
+      - name: Create GitHub deployment
+        uses: chrnorm/deployment-action@v2.0.3
+        id: deployment
+        with:
+          initial-status: success
+          token: '${{ github.token }}'
+          environment-url: ${{ steps.netlify-deploy.outputs.NETLIFY_PREVIEW_URL }}
+          environment: pre-production

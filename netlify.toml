@@ -1,0 +1,26 @@
+[build]
+publish = "build/"
+
+
+[[headers]]
+for = "/_app/immutable/*"
+[headers.values]
+cache-control = '''
+	public,
+	max-age=2592000,
+	stale-while-revalidate=7776000,
+	immutable'''
+
+
+[[headers]]
+for = "/favicon*"
+[headers.values]
+cache-control = '''
+	public,
+	max-age=21600,
+	stale-while-revalidate=604800'''
+
+[[redirects]]
+from   = "/*"
+status = 200
+to     = "200.html"

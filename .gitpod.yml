@@ -1,0 +1,48 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 4173
+    name: Vite Preview Server
+    onOpen: open-preview
+    # The port is visible to allow sharing of the preview
+    visibility: public
+  - port: 5173
+    name: Vite Dev Server
+    onOpen: open-preview
+    # The port is visible to allow sharing of the preview
+    visibility: public
+
+tasks:
+  - name: 'Vite'
+    init: pnpm install
+    command: |
+      export GITPOD_HMR_HOST=`gp url 5173`
+      pnpm run dev
+  - name: 'URLs'
+    command: |
+      clear
+      gp ports await 5173
+      echo
+      echo -e "\033[1;30m  PREVIEW:" "\033[1;36m"`gp url 5173`"\033[0m\n\n"
+    openMode: split-right
+
+vscode:
+  extensions:
+    - ardenivanov.svelte-intellisense
+    - bpruitt-goddard.mermaid-markdown-syntax-highlighting
+    - davidanson.vscode-markdownlint
+    - dbaeumer.vscode-eslint
+    - eamodio.gitlens
+    - editorconfig.editorconfig
+    - esbenp.prettier-vscode
+    - fivethree.vscode-svelte-snippets
+    - GitHub.copilot
+    - github.vscode-pull-request-github
+    - mhutchie.git-graph
+    - streetsidesoftware.code-spell-checker-french
+    - streetsidesoftware.code-spell-checker
+    - svelte.svelte-vscode
+    - tamasfe.even-better-toml
+    - voorjaar.windicss-intellisense
+    - VisualStudioExptTeam.vscodeintellicode

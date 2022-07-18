@@ -1,0 +1,15 @@
+{
+	"recommendations": [
+		"svelte.svelte-vscode",
+		"fivethree.vscode-svelte-snippets",
+		"ardenivanov.svelte-intellisense",
+		"editorconfig.editorconfig",
+		"davidanson.vscode-markdownlint",
+		"bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+		"esbenp.prettier-vscode",
+		"visualstudioexptteam.vscodeintellicode",
+		"github.vscode-pull-request-github",
+		"voorjaar.windicss-intellisense",
+		"tamasfe.even-better-toml"
+	]
+}

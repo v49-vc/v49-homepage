@@ -6,6 +6,14 @@ html {
 	scroll-behavior: smooth;
 }
 
+.font-oswald {
+	font-family: 'Oswald', sans-serif;
+}
+
+.font-josefin {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;

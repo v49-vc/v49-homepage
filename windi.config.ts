@@ -16,6 +16,7 @@ const config = defineConfig({
 			xs: '475px',
 			...defaultTheme.screens,
 		},
+
 		extend: {
 			screens: {
 				hoverable: { raw: '(hover: hover)' },

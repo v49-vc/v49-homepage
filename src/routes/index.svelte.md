@@ -1,3 +1,7 @@
+---
+title: v49
+---
+
 ## Vision
 
 v49 is an angel group that invests in young tech, life science and sustainable startups. We are eager to provide our expertise in machine learning, data science, healthcare technology, software development and privacy, as well as our network of mentors, scientific experts, and legal counselors.

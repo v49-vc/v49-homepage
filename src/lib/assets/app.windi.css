@@ -6,16 +6,20 @@ html {
 	scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
+body {
+	@apply bg-red-500 text-white;
+}
+
 .font-oswald {
 	font-family: 'Oswald', sans-serif;
 }
 
 .font-josefin {
 	font-family: 'Josefin Sans', sans-serif;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	html {
-		scroll-behavior: auto;
-	}
 }

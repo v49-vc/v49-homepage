@@ -19,6 +19,12 @@
 	<!-- Website Title -->
 	<title>{websiteTitle}</title>
 
+	<!-- Font -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&family=Open+Sans:wght@400;500;600;700&family=Oswald:wght@700&display=swap"
+		rel="stylesheet"
+	/>
+
 	<!-- Constant meta tags -->
 	<meta name="keywords" content="v49.vc, v49, VC, Paris" />
 	<meta name="robots" content="index, follow" />

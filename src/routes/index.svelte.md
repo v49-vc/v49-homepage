@@ -40,9 +40,3 @@ We are a united team of 9 young scientists, entrepreneurs and legal experts with
 ### Legal board
 
 - Samuel: Legal, Start up, Avocat VC
-
-<style>
-	ul > li {
-		padding-left: 0rem !important;
-	}
-</style>

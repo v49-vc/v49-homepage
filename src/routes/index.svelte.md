@@ -13,7 +13,7 @@ Our goal is to accompany ambitious companies to deliver a sustainable impact to 
 ## Strengths
 
 - We have expertise in various domains ranging from science, legal, business, along with a powerful network.
-- Because of our individual expertise in science we only accompany startups that have bullet proof technology.
+- Because of our individual expertise in science we only accompany startups that have bulletproof technology.
 
 The startups we will back would choose us for our commitment to impact and the internal tech validation we will provide them. More precisely, we can help startups by:
 

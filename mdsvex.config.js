@@ -3,9 +3,9 @@ const require = createRequire(import.meta.url);
 
 /** @type {Parameters<typeof import('mdsvex').mdsvex>[0]} */
 const mdsvexConfig = {
-	extensions: ['.svelte.md', '.md', '.svx'],
+	extensions: ['.svelte.md'],
 	layout: './src/lib/markdown/DefaultLayout.svelte',
-	smartypants: {		dashes: 'oldschool',	},
+	smartypants: { dashes: 'oldschool' },
 	remarkPlugins: [require('remark-math'), require('remark-abbr')],
 	rehypePlugins: [
 		require('rehype-katex-svelte'),

@@ -32,7 +32,7 @@ jobs:
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
         with:
-          extensions: '.js,.ts,.svelte'
+          extensions: '.js,.ts,.svelte,.md'
           npmInstall: false
           reportIgnoredFiles: true
       # ReviewDog actions
@@ -83,6 +83,7 @@ jobs:
         env:
           VITE_DISABLE_PLAUSIBLE: 'true'
           VITE_BUILD_ID: ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}
+          VITE_BASE_DOMAIN: ${{ env.GITHUB_HEAD_REF_SLUG_URL }}--v49.netlify.app
 
       # Deploy to Netlify
       - name: Deploy to Netlify 🚀

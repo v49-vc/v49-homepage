@@ -5,6 +5,7 @@
 	// Import our CSS
 	import '$lib/assets/app.windi.css';
 	import { copyrightStartYear } from '$lib/globals/constants';
+	import { urlForAsset } from '$lib/globals/vite-constants';
 
 	const websiteTitle = 'v49';
 
@@ -31,7 +32,7 @@
 
 	<!-- OpenGraph constants -->
 	<meta property="og:site_name" content={websiteTitle} />
-	<meta property="og:url" content="https://v49.vc{$page.url.pathname}" />
+	<meta property="og:url" content={urlForAsset($page.url.pathname).href} />
 
 	<meta name="title" property="title" content={websiteTitle} />
 	<meta property="og:title" content={websiteTitle} />
@@ -43,7 +44,7 @@
 		content="Official website of v49, a Paris-based VC."
 	/>
 	<meta property="og:type" content="website" />
-	<meta property="og:image" content="https://v49.vc/opengraph/opengraph.png" />
+	<meta property="og:image" content={urlForAsset('/opengraph/opengraph.png').href} />
 	<meta property="og:image:alt" content="v49 logo" />
 	<meta property="og:image:type" content="image/png" />
 	<meta property="og:image:width" content="1200" />
